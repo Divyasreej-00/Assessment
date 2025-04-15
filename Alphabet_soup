@@ -1,0 +1,14 @@
+from collections import Counter
+
+def count_pennymac(bowl):
+    target_word = "PENNYMAC"
+    bowl_count = Counter(bowl.upper()) 
+    target_count = Counter(target_word)
+
+    min_times = float('inf')
+    for letter, required_count in target_count.items():
+        if bowl_count[letter] < required_count:
+            return 0
+        min_times = min(min_times, bowl_count[letter] // required_count)
+
+    return min_times
