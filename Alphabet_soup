@@ -1,14 +1,29 @@
 from collections import Counter
 
-def count_pennymac(bowl):
-    target_word = "PENNYMAC"
-    bowl_count = Counter(bowl.upper()) 
+def count_pennymac(bowl: str) -> int:
+    """
+    This function takes a string of letters(the alphabet soup) and determines
+    how many times the word 'PENNYMAC' can be formed using the letters.
+    Parameters:
+    bowl(str): A string of letters available.
+    Returns:
+    int: The number of times 'PENNYMAC' can be formed.
+    """
+
+    # Define the target word and count the frequency of each letter in it
+    target_word = "PENNYMAC" 
     target_count = Counter(target_word)
 
+    # count the frequency of each letter in the bowl 
+    bowl_count = Counter(bowl.upper()) # convert to uppercase to match the target word
+    
+    # Intialize the number of times we can form the word to a large number
     min_times = float('inf')
+
+    # For each letter in the target word, calculate how many times it can be formed
     for letter, required_count in target_count.items():
         if bowl_count[letter] < required_count:
-            return 0
+            return 0   # If any letter is missing, we cant form the word even once
         min_times = min(min_times, bowl_count[letter] // required_count)
 
     return min_times
